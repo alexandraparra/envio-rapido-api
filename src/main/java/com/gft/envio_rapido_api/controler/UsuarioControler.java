@@ -1,6 +1,5 @@
 package com.gft.envio_rapido_api.controler;
 
-import com.gft.envio_rapido_api.dominio.Usuario;
 import com.gft.envio_rapido_api.dto.UsuarioDTO;
 import com.gft.envio_rapido_api.servico.UsuarioServico;
 import jakarta.validation.Valid;
