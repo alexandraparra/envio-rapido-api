@@ -25,16 +25,17 @@ public class UsuarioServico {
         return usuarioList;
     }
 
-    public UsuarioDTO salvarUsuario(Usuario usuario) {
-        Usuario salvo = repositorio.save(usuario);
+    public UsuarioDTO salvarUsuario(UsuarioDTO usuarioDTO) {
+        Usuario entidade = mapper.toEntidade(usuarioDTO);
+        Usuario salvo = repositorio.save(entidade);
         return mapper.toDTO(salvo);
     }
 
-    public UsuarioDTO alterarUsuario(String id, Usuario usuario) {
+    public UsuarioDTO alterarUsuario(String id, UsuarioDTO usuarioAtualizado) {
         Usuario usuarioExistente = this.buscarUsuarioPorId(id);
-        mapper.atualizarUsuario(usuarioExistente, usuario);
-        Usuario usuarioSalvo = repositorio.save(usuarioExistente);
-        return mapper.toDTO(usuarioSalvo);
+        Usuario dadosAtualizados = mapper.toEntidade(usuarioAtualizado);
+        mapper.atualizarUsuario(usuarioExistente, dadosAtualizados);
+        return mapper.toDTO(repositorio.save(usuarioExistente));
     }
 
     public UsuarioDTO buscarUsuarioPorIdDto(String id) {

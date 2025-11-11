@@ -3,6 +3,7 @@ package com.gft.envio_rapido_api.controler;
 import com.gft.envio_rapido_api.dominio.Usuario;
 import com.gft.envio_rapido_api.dto.UsuarioDTO;
 import com.gft.envio_rapido_api.servico.UsuarioServico;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +27,13 @@ public class UsuarioControler {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody Usuario usuario) {
-        UsuarioDTO usuarioNovo = servico.salvarUsuario(usuario);
+    public ResponseEntity<UsuarioDTO> salvarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+        UsuarioDTO usuarioNovo = servico.salvarUsuario(usuarioDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioNovo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> alterarUsuario(@PathVariable String id, @RequestBody Usuario usuarioAtualizado) {
+    public ResponseEntity<UsuarioDTO> alterarUsuario(@PathVariable String id, @Valid @RequestBody UsuarioDTO usuarioAtualizado) {
         try {
             UsuarioDTO usuario = servico.alterarUsuario(id, usuarioAtualizado);
             return ResponseEntity.ok(usuario);
