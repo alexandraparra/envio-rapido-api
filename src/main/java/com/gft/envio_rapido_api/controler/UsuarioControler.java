@@ -1,6 +1,7 @@
 package com.gft.envio_rapido_api.controler;
 
 import com.gft.envio_rapido_api.dominio.Usuario;
+import com.gft.envio_rapido_api.dto.UsuarioDTO;
 import com.gft.envio_rapido_api.servico.UsuarioServico;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,21 +20,21 @@ public class UsuarioControler {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarUsuarios() {
-        List<Usuario> usuarios = servico.listarUsuarios();
+    public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
+        List<UsuarioDTO> usuarios = servico.listarUsuarios();
         return ResponseEntity.ok(usuarios);
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> salvarUsuario(@RequestBody Usuario usuario) {
-        Usuario UsuarioNovo = servico.salvarUsuario(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioNovo);
+    public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody Usuario usuario) {
+        UsuarioDTO usuarioNovo = servico.salvarUsuario(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioNovo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> alterarUsuario(@PathVariable String id, @RequestBody Usuario usuarioAtualizado) {
+    public ResponseEntity<UsuarioDTO> alterarUsuario(@PathVariable String id, @RequestBody Usuario usuarioAtualizado) {
         try {
-            Usuario usuario = servico.alterarUsuario(id, usuarioAtualizado);
+            UsuarioDTO usuario = servico.alterarUsuario(id, usuarioAtualizado);
             return ResponseEntity.ok(usuario);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -51,9 +52,9 @@ public class UsuarioControler {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarUsuarioPorId(@PathVariable String id) {
+    public ResponseEntity<UsuarioDTO> buscarUsuarioPorId(@PathVariable String id) {
         try {
-            Usuario usuario = servico.buscarUsuarioPorId(id);
+            UsuarioDTO usuario = servico.buscarUsuarioPorIdDto(id);
             return ResponseEntity.ok(usuario);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
