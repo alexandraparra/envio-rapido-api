@@ -20,27 +20,20 @@ public class CaixaServico {
         this.mapper = mapper;
     }
 
-    public List<CaixaDTO> listarCaixas() {
-        List<CaixaDTO> caixaList = repositorio.findAll().stream().map(mapper::toDTO).toList();
-        return caixaList;
+    public List<Caixa> listarCaixas() {
+        return repositorio.findAll();
     }
 
-    public CaixaDTO salvarCaixa(CaixaDTO caixaDTO) {
+    public Caixa salvarCaixa(CaixaDTO caixaDTO) {
         Caixa entidade = mapper.toEntidade(caixaDTO);
-        Caixa salvo = repositorio.save(entidade);
-        return mapper.toDTO(salvo);
+        return repositorio.save(entidade);
     }
 
-    public CaixaDTO alterarCaixa(String id, CaixaDTO caixaAtualizado) {
+    public Caixa alterarCaixa(String id, CaixaDTO caixaAtualizado) {
         Caixa caixaExistente = this.buscarCaixaPorId(id);
         Caixa dadosAtualizados = mapper.toEntidade(caixaAtualizado);
         mapper.atualizarCaixa(caixaExistente, dadosAtualizados);
-        return mapper.toDTO(repositorio.save(caixaExistente));
-    }
-
-    public CaixaDTO buscarCaixaPorIdDto(String id) {
-        Caixa caixa = this.buscarCaixaPorId(id);
-        return mapper.toDTO(caixa);
+        return repositorio.save(caixaExistente);
     }
 
     public Caixa buscarCaixaPorId(String id) {

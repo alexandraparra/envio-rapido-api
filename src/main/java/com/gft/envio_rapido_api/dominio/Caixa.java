@@ -14,8 +14,8 @@ public class Caixa {
 
     @Id
     private String id;
-    private double largura;
-    private double altura;
-    private double comprimento;
-    private double peso;
+    private double larguraCaixa;
+    private double alturaCaixa;
+    private double comprimentoCaixa;
+    private double pesoCaixa;
 }
