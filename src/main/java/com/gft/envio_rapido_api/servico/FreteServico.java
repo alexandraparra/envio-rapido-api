@@ -20,27 +20,20 @@ public class FreteServico {
         this.mapper = mapper;
     }
 
-    public List<FreteDTO> listarFretes() {
-        List<FreteDTO> freteList = repositorio.findAll().stream().map(mapper::toDTO).toList();
-        return freteList;
+    public List<Frete> listarFretes() {
+        return repositorio.findAll();
     }
 
-    public FreteDTO salvarFrete(FreteDTO freteDTO) {
+    public Frete salvarFrete(FreteDTO freteDTO) {
         Frete entidade = mapper.toEntidade(freteDTO);
-        Frete salvo = repositorio.save(entidade);
-        return mapper.toDTO(salvo);
+        return repositorio.save(entidade);
     }
 
-    public FreteDTO alterarFrete(String id, FreteDTO freteAtualizado) {
+    public Frete alterarFrete(String id, FreteDTO freteAtualizado) {
         Frete freteExistente = this.buscarFretePorId(id);
         Frete dadosAtualizados = mapper.toEntidade(freteAtualizado);
         mapper.atualizarFrete(freteExistente, dadosAtualizados);
-        return mapper.toDTO(repositorio.save(freteExistente));
-    }
-
-    public FreteDTO buscarFretePorIdDto(String id) {
-        Frete frete = this.buscarFretePorId(id);
-        return mapper.toDTO(frete);
+        return repositorio.save(freteExistente);
     }
 
     public Frete buscarFretePorId(String id) {
