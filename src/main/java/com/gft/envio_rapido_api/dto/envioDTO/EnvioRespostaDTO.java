@@ -1,6 +1,6 @@
 package com.gft.envio_rapido_api.dto.envioDTO;
 
-import com.gft.envio_rapido_api.dto.FreteDTO;
+import com.gft.envio_rapido_api.dto.freteDTO.FreteRespostaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EnvioRespostaDTO extends EnvioDTO {
-    private FreteDTO frete;
+    private FreteRespostaDTO frete;
     private String mensagem;
 }

@@ -1,4 +1,4 @@
-package com.gft.envio_rapido_api.dto;
+package com.gft.envio_rapido_api.dto.freteDTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FreteDTO {
+public class FreteRespostaDTO {
 
-    @JsonIgnore
-    private String id;
+    private String cepOrigem;
+    private String cepDestino;
     private double valorPac;
     private int prazoPac;
     private double valorSedex;
