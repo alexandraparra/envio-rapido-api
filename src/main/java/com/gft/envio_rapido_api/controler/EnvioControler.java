@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/envios")
 public class EnvioControler {
-
     private final EnvioServico servico;
 
     public EnvioControler(EnvioServico servico) {
@@ -27,7 +26,7 @@ public class EnvioControler {
     @GetMapping("/{id}")
     public ResponseEntity<EnvioRespostaDTO> buscarEnvioPorId(@PathVariable String id) {
         try {
-            EnvioRespostaDTO envio = servico.buscarEnvioPorIdDto(id);
+            EnvioRespostaDTO envio = servico.buscarEnvioPorId(id);
             return ResponseEntity.ok(envio);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

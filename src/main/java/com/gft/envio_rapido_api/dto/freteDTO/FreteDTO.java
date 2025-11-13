@@ -1,22 +1,23 @@
-package com.gft.envio_rapido_api.dominio;
+package com.gft.envio_rapido_api.dto.freteDTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Frete {
-
-    @Id
-    private String id;
+public class FreteDTO {
+    @JsonProperty("valorPac")
     private Double valorPac;
+
+    @JsonProperty("prazoPac")
     private Integer prazoPac;
+
+    @JsonProperty("valorSedex")
     private Double valorSedex;
+
+    @JsonProperty("prazoSedex")
     private Integer prazoSedex;
-    private String linkPostagem;
 }
