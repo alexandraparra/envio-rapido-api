@@ -1,5 +1,7 @@
 package com.gft.envio_rapido_api.configuracao.seguridade;
 
+import com.gft.envio_rapido_api.excecao.CustomAccessDeniedHandler;
+import com.gft.envio_rapido_api.excecao.CustomAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +23,9 @@ public class Configuracao {
     Filtro filtro;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
+                                                   CustomAccessDeniedHandler deniedHandler,
+                                                   CustomAuthenticationEntryPoint entryPoint) throws Exception {
         return httpSecurity.csrf(
                 csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -31,7 +35,13 @@ public class Configuracao {
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/envios/**").permitAll()
                         .requestMatchers("/usuarios/**").hasRole("ADMIN")
-                        .anyRequest().authenticated())
+                        .requestMatchers("/frete/confirmar").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler(deniedHandler)
+                        .authenticationEntryPoint(entryPoint)
+                )
                 .addFilterBefore(filtro, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
