@@ -61,9 +61,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UsuarioJaExisteException.class)
     public ResponseEntity<Map<String, Object>> tratarUsuarioJaExiste(UsuarioJaExisteException exception) {
         return ResponseEntity
-                .badRequest()
+                .status(HttpStatus.CONFLICT)
                 .body(
-                        Map.of("status", 400, "erro", exception.getMessage())
+                        Map.of("status", 409, "erro", exception.getMessage())
                 );
     }
 
