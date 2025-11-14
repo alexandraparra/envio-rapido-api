@@ -1,6 +1,7 @@
 package com.gft.envio_rapido_api.servico;
 
 import com.gft.envio_rapido_api.dto.EnderecoDTO;
+import com.gft.envio_rapido_api.excecao.CepInvalidoException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,6 +17,11 @@ public class ViaCepService {
     }
 
     public EnderecoDTO buscarEnderecoPorCep(String cep) {
-        return restTemplate.getForObject(baseUrl, EnderecoDTO.class, cep);
+        EnderecoDTO endereco = restTemplate.getForObject(baseUrl, EnderecoDTO.class, cep);
+
+        if (endereco == null || Boolean.TRUE.equals(endereco.getErro())) {
+            throw new CepInvalidoException("CEP inválido.");
+        }
+        return endereco;
     }
 }

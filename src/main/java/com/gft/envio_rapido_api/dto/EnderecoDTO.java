@@ -1,5 +1,6 @@
 package com.gft.envio_rapido_api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,4 +15,7 @@ public class EnderecoDTO {
     private String bairro;
     private String localidade;
     private String uf;
+
+    @JsonProperty("erro")
+    private Boolean erro;
 }

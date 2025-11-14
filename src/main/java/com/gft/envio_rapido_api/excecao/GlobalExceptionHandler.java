@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,5 +75,14 @@ public class GlobalExceptionHandler {
                 .body(
                         Map.of("status", 400, "erro", exception.getMessage())
                 );
+    }
+
+    @ExceptionHandler(CepInvalidoException.class)
+    public ResponseEntity<Map<String, String>> handleCepInvalido(CepInvalidoException ex) {
+
+        Map<String, String> resposta = new HashMap<>();
+        resposta.put("mensagem", ex.getMessage());
+
+        return ResponseEntity.badRequest().body(resposta);
     }
 }
